@@ -163,6 +163,13 @@ app.post("/api/cfs", async function (req, res) {
   res.send(processedcf);
 });
 
+// Get company dividends
+app.post("/api/dividends", async function(req,res){
+  let symbol = req.body.symbol;
+  let data = await getDividendsData(symbol);
+  res.send(data);
+})
+
 app.post("/api/getsd", function (req, res) {
   let symbol = req.body.symbol;
 
@@ -383,6 +390,20 @@ async function getis(symbol) {
       }
     );
   });
+}
+async function getDividendsData(symbol){
+  return new Promise((resolve,reject)=>{
+    companiesdatabase.all("SELECT Dividends.ex_date,Dividends.amount FROM Companies INNER JOIN Dividends on Companies.company_id = Dividends.company_id WHERE symbol = ? ORDER BY Dividends.date ASC",[symbol],(err,row)=>{
+      if(err){
+        reject(err);
+      }
+      else{
+        resolve(row);
+      }
+    });
+
+  })
+
 }
 
 async function gettreasury(res) {
