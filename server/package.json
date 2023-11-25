@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node start",
+    "dev": "nodemon start"
+  },
+  "author": "Paul Oladele",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "chart.js": "^4.4.0",
+    "child_process": "^1.0.2",
+    "cookie": "^0.5.0",
+    "cookie-parser": "^1.4.6",
+    "cookieparser": "^0.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "next": "^14.0.1",
+    "path": "^0.12.7",
+    "promisify": "^0.0.3",
+    "proxy-addr": "^2.0.7",
+    "sqlite": "^5.0.1",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

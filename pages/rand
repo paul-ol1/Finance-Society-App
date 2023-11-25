@@ -1,0 +1,182 @@
+ <h1 style={{ textAlign: "center" }}>Investment</h1>
+          <div>
+            <p>
+              Investments are a fundamental aspect of the financial world,
+              allowing individuals and organizations to allocate their resources
+              with the goal of generating returns or achieving specific
+              financial objectives. More specifically it is the commitment of
+              current resources in the expectation of deriving greater resources
+              in the future.
+            </p>
+          </div>
+
+          <div className="investment-topic">
+            <h2>Real Assets and Financial Assets</h2>
+            <div className="investment-subtopic">
+              <h3>Real Assets</h3>
+              <p>
+                Real assets represent tangible, physical properties or
+                investments with intrinsic value. They are typically associated
+                with the real estate sector and other tangible assets. General
+                examples would be Real Estate( Residential, commercial, and
+                industrial properties) and commodities such as gold, oil, and
+                agricultural products.
+              </p>
+            </div>
+            <div className="investment-subtopic">
+              <h3>Financial Assets</h3>
+              <p>
+                Financial assets, on the other hand, are intangible and
+                represent ownership claims or contractual rights. They are often
+                traded in financial markets. Examples of this are Cash, Savings
+                Accounts, Certificates of Deposit (CDs), Money Market Accounts,
+                Stocks, Bonds, Mutual Funds, Options, Futures, Foreign Exchange
+                (Forex), Cryptocurrencies.
+              </p>
+            </div>
+          </div>
+          <div className="investment-topic">
+            <h2>Types of Investments</h2>
+            <div className="investment-subtopic">
+              <h3>Stocks</h3>
+              <p>
+                Stocks represent ownership in a company. They offer the
+                potential for capital appreciation and may pay dividends. Stocks
+                are traded on stock exchanges.
+              </p>
+            </div>
+            <div className="investment-subtopic">
+              <h3>Bonds</h3>
+              <p>
+                Bonds are debt securities issued by governments, corporations,
+                or other entities. Bondholders receive periodic interest
+                payments and the return of the bond's face value at maturity.
+              </p>
+            </div>
+            <div className="investment-subtopic">
+              <h3>Mutual Funds</h3>
+              <p>
+                Mutual funds pool money from multiple investors to invest in a
+                diversified portfolio of stocks, bonds, or other securities.
+              </p>
+            </div>
+            <div className="investment-subtopic">
+              <h3>Real Estate</h3>
+              <p>
+                Real estate investments involve purchasing properties, such as
+                residential, commercial, or rental properties, to generate
+                rental income and potential property value appreciation.
+              </p>
+            </div>
+
+            <div className="investment-topic">
+              <h2>Investment Principles</h2>
+              <div className="investment-subtopic">
+                <h3>Risk and Return</h3>
+                <p>
+                  The risk-return trade-off is central. Investors seeking higher
+                  returns often accept greater risk. Risk management involves
+                  diversification and other strategies.
+                </p>
+              </div>
+              <div className="investment-subtopic">
+                <h3>Diversification</h3>
+                <p>
+                  Diversifying across assets reduces risk. It helps prevent the
+                  performance of one asset from dominating the entire portfolio.
+                </p>
+              </div>
+              <div className="investment-subtopic">
+                <h3>Time Horizon</h3>
+                <p>
+                  Your investment time horizon, such as short-term, medium-term,
+                  or long-term, influences your investment choices and
+                  strategies.
+                </p>
+              </div>
+              <div className="investment-subtopic">
+                <h3>Asset Allocation</h3>
+                <p>
+                  Asset allocation involves dividing your investments among
+                  different asset classes, such as stocks, bonds, and cash, to
+                  achieve your financial goals.
+                </p>
+              </div>
+            </div>
+
+            <div className="investment-topic">
+              <h2>Capital Markets and Money Markets</h2>
+              <div className="investment-subtopic">
+                <h3>Capital Markets</h3>
+                <p>
+                  Capital markets facilitate the buying and selling of long-term
+                  securities, such as stocks and bonds, while providing
+                  long-term financing to corporations and governments.
+                </p>
+              </div>
+              <div className="investment-subtopic">
+                <h3>Money Markets</h3>
+                <p>
+                  Money markets deal with short-term securities, providing
+                  short-term funding for businesses and governments. They
+                  include instruments like Treasury bills and commercial paper.
+                </p>
+              </div>
+            </div>
+
+            <div className="investment-topic">
+              <h2>Investment Strategies</h2>
+              <div className="investment-subtopic">
+                <h3>Value Investing</h3>
+                <p>
+                  Value investors seek undervalued assets with the potential for
+                  future growth. They analyze financial statements and market
+                  trends.
+                </p>
+              </div>
+              <div className="investment-subtopic">
+                <h3>Growth Investing</h3>
+                <p>
+                  Growth investors focus on companies with strong growth
+                  potential. They often invest in emerging industries and
+                  high-growth stocks.
+                </p>
+              </div>
+              <div className="investment-subtopic">
+                <h3>Income Investing</h3>
+                <p>
+                  Income investors prioritize regular income and invest in
+                  assets like dividend-paying stocks and bonds. They aim for
+                  steady cash flow.
+                </p>
+              </div>
+            </div>
+
+            <div className="investment-topic">
+              <h2>Investment Goals and Risk Tolerance</h2>
+              <div className="investment-subtopic">
+                <h3>Financial Goals</h3>
+                <p>
+                  Your financial goals, such as retirement, education, or a
+                  major purchase, influence your investment strategy and time
+                  horizon.
+                </p>
+              </div>
+              <div className="investment-subtopic">
+                <h3>Risk Tolerance</h3>
+                <p>
+                  Your risk tolerance reflects your willingness and ability to
+                  bear risk. It affects your asset allocation and choice of
+                  investments.
+                </p>
+              </div>
+              <div className="investment-subtopic">
+                <h3>Tax Considerations</h3>
+                <p>
+                  Tax-efficient investing aims to minimize tax liabilities.
+                  Strategies include tax-efficient funds and retirement
+                  accounts.
+                </p>
+              </div>
+            </div>
+          </div>

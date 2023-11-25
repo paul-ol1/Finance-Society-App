@@ -1,0 +1,59 @@
+
+.intro,.Investments_section,.Portfolio_section,.valuation_section {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.homecontent_left,
+.homecontent_right {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding: 20px;
+}
+.homecontent_left {
+  color: #031E40;
+  flex-direction: column;
+  flex: 0.5;
+}
+.homecontent_right {
+  flex: 0.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.homecontent_left h1 , .homecontent_right h1  {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 48px;
+}
+.valuation_section img{
+    width: 600px;
+  height: auto;
+}
+.Investments_section img{
+  height: auto;
+  width: 650px;
+}
+.Portfolio-section{
+  margin-top: -50px;
+}
+
+.content img {
+  width: 600px;
+  height: 500px;
+}
+
+.intro img {
+  width: 600px;
+  height: 500px;
+}
+.Portfolio_section img {
+  width: 600px;
+  height: 500px;
+}

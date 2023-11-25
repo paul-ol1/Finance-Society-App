@@ -1,0 +1,131 @@
+.lscontent{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+.login_container{
+  margin-top: 20px;
+  position: relative;
+  width: 620px;
+  height: 450px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftside,.rightside{
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+.leftside{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.login_side{
+  padding: 10px;
+}
+.rightside{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 54%;
+}
+
+.rightside h1{
+  color: #8798EE;
+  margin-bottom: -10px;
+}
+
+.rightside label{
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+color: black;
+opacity: 0.4;
+}
+.rightside input{
+margin: auto;
+width: 295px;
+height: 42px;
+border: none;
+border-bottom: 1px solid black;
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+text-align: center;
+margin-bottom: 25px;
+}
+
+
+.rightside input:focus {
+  outline: none;
+}
+
+.bvimage{
+width: 500px;
+height: 500px;
+
+}
+.rightside button{
+display: flex;
+justify-content: center;
+align-items: center;
+width: 180px;
+height: 37px;
+background: rgba(135, 152, 238, 0.3);
+border-radius: 7px;
+color: #8798EE;
+margin:auto;
+border: none;
+background: linear-gradient(to left, rgba(135, 152, 238, 0.3) 50%, rgba(135, 152, 238,1) 50%) right;
+background-size: 200% 100%;
+}
+.rightside button:hover{
+  cursor: pointer;
+  background-position: left;
+  transition: all 2s linear;
+  color:#FFFFFF ;
+}
+.linktext{
+  margin-top: -10px;
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+}
+
+.linktext:hover{
+  cursor:pointer;
+  color: #8798EE;
+
+}
+
+ .button{
+  min-width: 120px;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #031E40;
+  box-shadow: 0px 4px 4px #031E40(0, 0, 0, 0.25);
+  font-family: "manrope";
+  font-style: normal;
+  font-weight: 600px;
+  font-size: 14px;
+  border-radius: 3px;
+  text-align: center;
+  color: #031E40;
+}
+.button:hover{
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.05);
+  cursor: pointer;
+}

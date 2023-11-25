@@ -1,0 +1,20 @@
+.events_container{
+  display: flex;
+  flex-direction: row;
+  font-family: "Manrope";
+  font-style: normal;
+  padding: 10px;
+  border-top: 1px solid rgba(3, 30, 64, 0.1);
+  color: rgba(3, 30, 64, 1);
+}
+.events_container h1{
+  font-weight: 900;
+  text-align: center;
+}
+.events_container div{
+  padding: 10px;
+}
+.events_container img{
+  width: 200px;
+  height: auto;
+}
