@@ -60,10 +60,10 @@ function Login() {
               <h1>Login</h1>
               <p>Welcome back</p>
               <div className={styles.Login_side}>
-                <label for="email">Email</label>
+                <label htmlFor="email">Email</label>
                 <input type="email" id="email" name="email" />
                 <br />
-                <label for="password">Password</label>
+                <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password" />
                 <br />
                 <button onClick={handleLogin} type="submit" className={styles.button}>Login</button>

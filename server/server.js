@@ -32,6 +32,7 @@ let companiesdatabase = new sqlite3.Database("companies.db", function (error) {
   }
 });
 
+
 // Route to retrieve key financial information
 app.post("/api/keyinfo", async function (req, res) {
   const ticker = req.body.symbol;
@@ -184,6 +185,21 @@ app.post("/api/getsd", function (req, res) {
     }
   });
 });
+app.post("/api/othersd", function (req, res) {
+  let symbol = req.body.symbol;
+
+  execAsync(`python3 riskreturn.py ${symbol}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`node error: ${error}`);
+      console.error(`python error: ${stderr}`);
+      res.status(500).send("Internal Server Error");
+    } else {
+      let data = stdout.trim().split(" ");
+      console.log(data)
+      res.send(data);
+    }
+  });
+});
 
 app.get("/api/getmr", async function (req, res) {
   await getmarket(res);
@@ -233,7 +249,8 @@ app.post("/api/log-in", async function (req, res) {
       const user = await confirmaccount(sql, [email, password]);
       if (user) {
         // User found, send a success response and set the cookie
-        await createcookie(email, res).then(() => {
+        await createcookie(email, res).then(async (id) => {
+          await createportfoliocookie(id,res);
           res.status(200).json({ message: "Logged in successfully" });
         }); // Set the cookie first
         //
@@ -278,6 +295,45 @@ app.post("/api/newaccount", async function (req, res) {
     res.status(406).json({ error: "Wrong Email format" });
   }
 });
+
+//create new portfolio and send cookie for it
+
+app.post("/api/createportfolio", async function (req, res) {
+  const id = req.body.id;
+  const date = req.body.date;
+  try {
+    createacctAsyncfunc(
+      "INSERT INTO Portfolio(UserID,creation_date) VALUES(?,?)",
+      [id, date]
+    );
+    await createportfoliocookie(id,res).then(()=>{
+      res.status(200).json('portflio created')
+    })
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "portfolio already exists" });
+  }
+});
+
+app.post("/api/insertintoportfolio", async function (req, res) {
+  const query = req.body.sqlquery;
+  const values = req.body.values;
+  console.log(query)
+  try {
+    createacctAsyncfunc(query,values);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "elem not added" });
+  }
+});
+
+ app.post("/api/getportfoliodata", async function (req, res) {
+   const id = req.body.id;
+   const data = await getallportfoliodata(id);
+   res.json(data);
+
+ });
+
 
 // This code return jpg images, html, css, and js files
 // The first parameter is an array of file extensions to match
@@ -393,14 +449,17 @@ async function getis(symbol) {
 }
 async function getDividendsData(symbol){
   return new Promise((resolve,reject)=>{
-    companiesdatabase.all("SELECT Dividends.ex_date,Dividends.amount FROM Companies INNER JOIN Dividends on Companies.company_id = Dividends.company_id WHERE symbol = ? ORDER BY Dividends.date ASC",[symbol],(err,row)=>{
-      if(err){
-        reject(err);
+    companiesdatabase.all(
+      "SELECT Dividends.date,Dividends.amount FROM Companies INNER JOIN Dividends on Companies.company_id = Dividends.company_id WHERE symbol = ? ORDER BY DATE(Dividends.date) ASC",
+      [symbol],
+      (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
       }
-      else{
-        resolve(row);
-      }
-    });
+    );
 
   })
 
@@ -438,13 +497,48 @@ async function createcookie(email, res) {
         ID: user.UserID,
       };
 
-      res.cookie("Userdetails", JSON.stringify(userCookie), {
-        expires: new Date(Date.now() + 17200000),
-      });
-
+      res.cookie("Userdetails", JSON.stringify(userCookie))
+      return user.UserID;
     }
   } catch (err) {
     console.error(err);
     // Handle any error that occurs when retrieving user data
+  }
+
+}
+
+function getportfoliodata(id) {
+  const sql = "SELECT PortfolioID FROM Portfolio WHERE UserID = ?";
+  return new Promise((resolve, reject) => {
+    userdatabase.get(sql, [id], (err, row) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(row);
+      }
+    });
+  });
+}
+function getallportfoliodata(id){
+  const sql =
+    "SELECT PortfolioEntry.AssetType, PortfolioEntry.Symbol, PortfolioEntry.BuyPrice, PortfolioEntry.Quantity,PortfolioEntry.Action, PortfolioEntry.PurchaseDate, PortfolioEntry.Status FROM Portfolio INNER JOIN PortfolioEntry ON Portfolio.PortfolioID = PortfolioEntry.PortfolioID WHERE UserID = ?";
+    return new Promise((resolve, reject) => {
+      userdatabase.all(sql, [id], (err, row) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(row);
+        }
+      });
+    });
+}
+
+async function createportfoliocookie(id,res){
+  let portfolioid = await getportfoliodata(id);
+  if(portfolioid){
+    const cookieData = {
+      id : portfolioid.PortfolioID,
+    }
+    res.cookie('Portfolio',JSON.stringify(cookieData));
   }
 }

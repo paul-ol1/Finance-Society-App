@@ -8,10 +8,31 @@
   padding: 10px;
   min-width: 600px;
   color: #031E40;
-  background-color: #f6f6f6;
+  background-color: #fff;
   border-bottom: 1px solid #031E40;
   align-items: center;
   width:100% ;
+}
+.usericonfunc{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  z-index: 1001;
+  right: 5px;
+  top: 100px;
+}
+.usericonfunc button{
+  width:200px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #031E40;
+  border-top: none;
+}
+
+.usericonfunc a{
+  text-decoration: none;
+  font-size: 18px;
+   color: #031E40;;
 }
 
 .header_elem {
@@ -31,11 +52,12 @@
   align-items: center;
   flex-direction: row;
 }
-.header_right{
-  display:flex;
+.header_right {
+  display: flex;
   align-items: center;
   flex: 1;
-  justify-content: end;
+  justify-content: flex-end;
+  margin-right: 50px;
 }
 #logo {
   display: flex;
@@ -54,4 +76,6 @@
 .usericon {
   font-size: 1.2rem;
   text-align: end;
+  height: 30px;
+  width: 30px;
 }

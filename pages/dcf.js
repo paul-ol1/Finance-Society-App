@@ -17,6 +17,8 @@ import { getCookie } from "./checkcookie";
 import { BarElement } from "chart.js";
 import { Bar, Line, Scatter, Bubble } from "react-chartjs-2";
 import Cookies from "universal-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 // Registering chart elements with ChartJS
 ChartJS.register(BarElement);
@@ -148,7 +150,111 @@ async function getCashflow(symbol) {
     console.error("Error fetching information:", error);
   }
 }
+function keyinfo_help(func){
+  // key info help div in the calculation of Dcf
+  return (
+    <div className={styles.help}>
+      <h2>Key Information</h2>
+      <div>
+        <h3>Total Assets</h3>
+        <p>
+          Total assets are used to find the weights of debts and liabilities in
+          the calculation of the discount rate. In DCF analysis, the discount
+          rate often includes a cost of debt component. The weights of debt and
+          equity in the capital structure are crucial for determining the
+          appropriate discount rate.
+        </p>
+      </div>
+      <div>
+        <h3>Total Debt</h3>
+        <p>
+          The amount of debt the company has. In the context of DCF, it's a key
+          factor in determining the weighted average cost of capital (WACC),
+          which is used as the discount rate in the DCF formula. WACC is the
+          average rate of return a business is expected to provide to all its
+          investors, including debt holders
+        </p>
+      </div>
+      <div>
+        <h3>Excess Cash</h3>
+        <p>
+          Excess cash refers to the amount of cash and cash equivalents held by
+          the company beyond what is needed for its regular operations. In DCF,
+          it is used in the calculation of the intrinsic value as it tells how
+          liquid the company is if it had to repay all it's debts now, so its a
+          good estimate of current position.
+        </p>
+      </div>
+      <div>
+        <h3>Interest Expense</h3>
+        <p>
+          Interest expense is the cost of borrowing for the company. It is
+          deducted from the operating income to calculate the earnings before
+          interest and taxes (EBIT). Understanding the interest expense is
+          crucial for calculating the cost of debt in the WACC
+        </p>
+      </div>
+      <div>
+        <h3>Income Tax Rate</h3>
+        <p>
+          The income tax rate is essential for calculating the after-tax cost of
+          debt. It is used in determining the tax shield on interest payments.
+          The tax shield helps reduce the overall cost of debt for the company.
+        </p>
+      </div>
+      <div>
+        <h3>Stock Price</h3>
+        <p>
+          The stock price is the current market price of the company's shares.
+          Crucial to the model it is used to derive the share's intrinsic value
+          and check how it compares to market price
+        </p>
+      </div>
+      <div>
+        <h3>Shares Outstanding</h3>
+        <p>Used to calculate Market Cap</p>
+      </div>
+      <div>
+        <h3>Beta</h3>
+        <p>
+          Beta is a measure of a stock's volatility in relation to the overall
+          market. It is used in the Capital Asset Pricing Model (CAPM) to
+          estimate the cost of equity. The cost of equity is a component of the
+          WACC.
+        </p>
+      </div>
+      <div>
+        <h3>Discount Rate</h3>
+        <p>
+          The discount rate, often represented as a percentage, is used to
+          discount future cash flows back to their present value. In DCF, it's
+          typically the weighted average cost of capital (WACC), which combines
+          the cost of equity and cost of debt.
+        </p>
+      </div>
+      <div>
+        <h3>Short Term Growth Rate</h3>
+        <p>
+          This represents the expected growth rate of the company's free cash
+          flows in the short term. It's used in the forecast period of the DCF
+          analysis.
+        </p>
+      </div>
+      <div>
+        <h3>Long Term Growth Rate</h3>
+        <p>
+          This represents the expected growth rate of the company's free cash
+          flows in the long term, typically after the forecast period. It's used
+          in perpetuity to estimate the terminal value in the DCF formula.
+        </p>
+      </div>
+      <div className={styles.helpbuttdiv}>
+        <button onClick={()=>{func(false)}} > Close </button>
+      </div>
 
+    </div>
+  );
+}
 // Main component for DCF calculations
 export default function Dcf() {
   const router = useRouter();
@@ -179,9 +285,28 @@ export default function Dcf() {
   const [ltg, setLtg] = useState(null);
   const [intrinsicvalue, setintrinsicvalue] = useState(null);
   const [marketvalue, setmarketValue] = useState(null);
+  const [keyinfohelpstate,setKeyInfoHelpstate] = useState(false);
   const intrinsicValUpdated = useRef(false);
   const marketvalUpdated = useRef(false);
+  function changeallkeyinfo(index){
+    let elem= Array.from(document.getElementsByClassName(styles.keyinfoinput))[index];
+    elem = elem.value;
+    let ki = [...keyinformation]
+    ki[index].value = elem;
+    setKeyInformation(ki);
+    marketvalUpdated.current= false;
+    intrinsicValUpdated.current= false;
+    calcwacc(
+      stockdata[2],
+      keyinformation[0].value,
+      keyinformation[1].value,
+      marketreturns,
+      treasuryrate,
+      keyinformation[3].value,
+      keyinformation[keyinformation.length - 1].value
+    );
 
+  }
   // Function to calculate WACC and update state
   async function calcwacc(
     beta,
@@ -243,8 +368,6 @@ export default function Dcf() {
           company = JSON.parse(getCookie("Company"));
         }
         //some company have these words attributed to it amongst others and i don't like how it looks
-
-
       }
     }
     // if companies not null in both cases of cookies and initial
@@ -300,7 +423,7 @@ export default function Dcf() {
       }
       fetchData();
     }
-  }, []);
+  }, [intrinsicValUpdated,marketvalUpdated]);
 
   // Function to generate a table for Statement of Cashflow - Free Cash Flow (FCF)
   function getcftable(arr) {
@@ -309,6 +432,7 @@ export default function Dcf() {
         {/* Subtitle for the table */}
         <div className={styles.tablesubtitle}>
           <p>Statement of Cashflow -&gt; Free Cash Flow (FCF)</p>
+          <FontAwesomeIcon icon={faCircleInfo} className={styles.icon} />
         </div>
 
         {/* Table structure */}
@@ -457,6 +581,7 @@ export default function Dcf() {
       <>
         <div className={styles.tablesubtitle}>
           <p>Free Cash Flow Projections(in thousands)</p>
+          <FontAwesomeIcon icon={faCircleInfo} className={styles.icon} />
         </div>
         <table style={{ borderCollapse: "collapse" }}>
           <thead className={styles.tablehead}>
@@ -483,6 +608,10 @@ export default function Dcf() {
                   <input
                     className={styles.tableinput}
                     defaultValue={"" + elem}
+                    style={{
+                      backgroundColor: "white",
+                      cursor: "auto",
+                    }}
                     readOnly={true}></input>
                 </td>
               ))}
@@ -495,6 +624,10 @@ export default function Dcf() {
                 <td className={styles.tablevalues} key={index}>
                   <input
                     className={styles.tableinput}
+                    style={{
+                      backgroundColor: "white",
+                      cursor: "auto",
+                    }}
                     defaultValue={(
                       elem / Math.pow(1 + parseFloat(discountrate), index + 1)
                     ).toFixed(2)}
@@ -514,6 +647,7 @@ export default function Dcf() {
       <>
         <div className={styles.subtitle}>
           <p>Key Information (in thousands)</p>
+            <FontAwesomeIcon icon={faCircleInfo} className={styles.icon} onClick={()=>{setKeyInfoHelpstate(!keyinfohelpstate)}}/>
         </div>
         {keyinformation.map((elem, index) => {
           return (
@@ -522,7 +656,7 @@ export default function Dcf() {
                 <p>{elem.name}</p>
               </div>
               <div className={styles.boxrowval}>
-                <p>{elem.value}</p>
+                <input defaultValue={elem.value} className= {styles.keyinfoinput}onChange={()=>{changeallkeyinfo(index)}}></input>
               </div>
             </div>
           );
@@ -551,6 +685,7 @@ export default function Dcf() {
         <div className={styles.boxrow}>
           <div>
             <p>Short Term Growth Rate</p>
+
           </div>
           <div className={styles.boxrowval}>
             <p>{(gr * 100).toFixed(2)}%</p>
@@ -764,6 +899,7 @@ export default function Dcf() {
       <>
         <div className={styles.subtitle}>
           <p>Cost Of Equity (Capm)</p>
+          <FontAwesomeIcon icon={faCircleInfo} className={styles.icon} />
         </div>
         <div className={styles.boxrow}>
           <div>
@@ -822,6 +958,7 @@ export default function Dcf() {
       <>
         <div className={styles.subtitle}>
           <p>Discount Rate (WACC)</p>
+          <FontAwesomeIcon icon={faCircleInfo} className={styles.icon} />
         </div>
         <div className={styles.boxrow}>
           <div>
@@ -923,6 +1060,7 @@ export default function Dcf() {
       <>
         <div className={styles.subtitle}>
           <p>Intrinsic Value</p>
+          <FontAwesomeIcon icon={faCircleInfo} className={styles.icon} />
         </div>
         <div className={styles.boxrow}>
           <div>
@@ -942,7 +1080,7 @@ export default function Dcf() {
         </div>
         <div className={styles.boxrow}>
           <div>
-            <p>Enterprise Value </p>
+            <p>Terminal Value </p>
           </div>
           <div className={styles.boxrowval}>
             <div id={styles.wacc}>
@@ -1001,13 +1139,16 @@ export default function Dcf() {
     if (!marketvalUpdated.current) {
       setmarketValue((mv / parseInt(stockdata[1])).toFixed(2) * 1000);
       marketvalUpdated.current = true;
+
     }
+
 
     // Render the market value components
     return (
       <>
         <div className={styles.subtitle}>
           <p>Market Value</p>
+          <FontAwesomeIcon icon={faCircleInfo} className={styles.icon} />
         </div>
         <div className={styles.boxrow}>
           <div>
@@ -1061,9 +1202,10 @@ export default function Dcf() {
       <div className="content">
         <div className={styles.container}>
           {loading ? (
-            <div className={styles.spinner}> </div>
+            <div className={"spinner"}> </div>
           ) : (
             <>
+              {keyinfohelpstate ? keyinfo_help(setKeyInfoHelpstate) : <></>}
               <h1 className={styles.title}>{company.name}</h1>
 
               <div className={styles.dcfmain}>

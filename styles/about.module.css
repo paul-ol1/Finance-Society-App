@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100&display=swap");@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100&family=Manrope&display=swap");
+.container {
+    margin-top: 120px;
+    font-family: "manrope";
+  }
+  
+  .top {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+  }
+  
+  .illu {
+    height: 50px;
+    width: 50px;
+    margin-left: 80px;
+    margin-right: 20px; 
+  }
+  
+  .big {
+    height: 500px;
+    width: 690px;
+  
+  }
+  
+  
+  .text {
+    margin-right: 50px;
+    font-size: 23px;
+    margin-left: 30px;
+  }
+  
+  .content{
+    margin-left: 110px;
+    display: flex;
+    align-items: center;
+  }
+
+  .box1{
+    background-color: black;
+    border: 5px, solid, black;
+    width: 200px;
+    height:1.5px;
+    margin-left: 80px;
+    margin-top: -15px;
+  }
+
+  .line{
+    display: flex;
+    align-items: center;
+  }
+  .box2{
+    background-color: lightgrey;
+    border: 2px, solid, lightgrey;
+    width: 1440px;
+    height:1.5px;
+    margin-top: -15px;
+  }
+
+  .contactBox{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    gap: 100px;
+  }
+
+  .contactInfo {
+    background-color: white;
+    border: 1.5px solid black;
+    width: 180px;
+    height: 250px;
+    padding: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; 
+    justify-content: start;
+    align-items: center;
+  }
+  
+  .circleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .circle1 {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    opacity: 30%;
+    border-radius: 50%;
+    margin-top: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .circle2 {
+    width: 100px;
+    height: 100px;
+    background-color: #FF0000;
+    opacity: 30%;
+    border-radius: 50%;
+    margin-top: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .circle3 {
+    width: 100px;
+    height: 100px;
+    background-color: #048D3B;
+    opacity: 30%;
+    border-radius: 50%;
+    margin-top: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .circle4 {
+    width: 100px;
+    height: 100px;
+    background-color: #E2CC00;
+    opacity: 30%;
+    border-radius: 50%;
+    margin-top: 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .illu2 {
+    height: 70px;
+    width: 70px;
+    opacity: 100%;
+  }
+  
+  .contact{
+    margin-top: 50px;
+  }
+
+  .negSpace{
+    margin-top: -15px;
+  }

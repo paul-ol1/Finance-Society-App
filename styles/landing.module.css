@@ -6,6 +6,12 @@
   justify-content: center;
   align-items: center;
 }
+.intro h1,.Investments_section h1,.Portfolio_section h1 ,.valuation_section h1{
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.intro p,.Investments_section p,.Portfolio_section p ,.valuation_section p {
+  text-align: justify;
+}
 .homecontent_left,
 .homecontent_right {
   height: 100%;

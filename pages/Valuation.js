@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useState,useRef} from "react";
 import Header from "./Header";
 import indicator from "/public/img/indicator.png";
 import Image from "next/image";
@@ -6,12 +6,16 @@ import katex from 'katex';
 import 'katex/dist/katex.min.css';
 import { getCookie } from "./checkcookie";
 import { useRouter } from "next/router";
+import styles from "styles/valuation.module.css";
 
 function Valuation() {
 const router = useRouter();
+const [guide,setGuide]= useState(false);
+const ddmref = useRef(null);
+const dcfref = useRef(null);
   useEffect(() => {
     // Check the cookie and conditionally navigate to another page
-    if (!getCookie()) {
+    if (!getCookie("Userdetails")) {
       // The cookie is true, so navigate to the "home" page
       router.push("/"); // Update the path to your home page
     } else {
@@ -20,6 +24,21 @@ const router = useRouter();
       const ggmhtml = katex.renderToString(ggmformula, { displayMode: true });
       let formulaDiv = document.getElementById("ggmformula");
       formulaDiv.innerHTML = ggmhtml;
+
+      const fcfformula = "FCF = \\ Operating  CashFlow - Capital  Expenditure"
+      const fcfformulahtml = katex.renderToString(fcfformula, {
+        displayMode: true,
+      });
+      let fcfDiv = document.getElementById("fcfformula");
+      fcfDiv.innerHTML = fcfformulahtml;
+      const costofdebtformula= "C_d = \\frac{i}{D} "
+      const costofdebthtml = katex.renderToString(costofdebtformula,{displayMode:true});
+      let costofdebtDiv = document.getElementById("cdformula");
+      costofdebtDiv.innerHTML = costofdebthtml;
+      const costofequityformula = "C_e = \\ R_f + β (R_m - R_f)";
+      const costofequityhtml = katex.renderToString(costofequityformula,{displayMode:true});
+      let costofequityDiv = document.getElementById("ceformula");
+      costofequityDiv.innerHTML = costofequityhtml;
 
       const tsggmformula =
         "P_0 = \\frac{D_0 \\times (1 + g_1)}{r - g_1} + \\frac{D_n \\times (1 + g_2)}{(r - g_2) \\times (1 + r)^n}";
@@ -30,13 +49,26 @@ const router = useRouter();
       formulaDiv = document.getElementById("tsggmformula");
       formulaDiv.innerHTML = tsggmhtml;
     }
+    const waccformulaDiv = document.getElementById("waccformula");
+    const waccFormula = `WACC = \\frac{E}{V} \\times C_e + \\frac{D}{V} \\times C_d \\times (1 - T_r)`;
+    const waccHtml = katex.renderToString(waccFormula, {
+      displayMode: true,
+    });
+    waccformulaDiv.innerHTML = waccHtml;
   }, [router]);
 
   return (
     <>
       <Header />
       <div className="content">
-        
+        <div className={styles.guide}>
+          <Image src={indicator} onClick={() => { setGuide(!guide)}}></Image>
+          {guide?(
+            <>
+            <p onClick={()=>{dcfref.current.scrollIntoView({ behavior: "smooth"})}}>DCF</p>
+          <p onClick={()=>{ddmref.current.scrollIntoView({ behavior: "smooth" });}}>DDM</p></>
+          ):<></>}
+        </div>
         <div className="Valuation">
           <h1>Valuation</h1>
           <div>
@@ -57,139 +89,342 @@ const router = useRouter();
               creditors, and other stakeholders. Ultimately, valuation is the
               cornerstone of prudent financial management and prudent investment
               strategies, serving as a reliable means to assign a numerical
-              value to assets and entities in a dynamic economic landscape.
+              value to assets and entities in a dynamic economic
+              landscape.Fundamental valuation methods are techniques used in
+              investment analysis to estimate the intrinsic value of a security
+              or investment. These methods focus on evaluating the underlying
+              fundamentals of an asset, such as financial statements, economic
+              indicators, and market conditions. Here are some commonly used
+              fundamental valuation methods:
             </p>
-            <div className="topic">
-              <h2>Methods of Valuation</h2>
+            <div className={styles.topic} ref={dcfref}>
+              <h2>Discounted Cash Flow (DCF)</h2>
               <p>
-                Valuation is a multifaceted process with several methods
-                employed to determine the worth of assets, businesses, or
-                investments. The choice of valuation method depends on the
-                nature of the asset or entity being assessed, the industry it
-                belongs to, and the specific objectives of the valuation. Here
-                are some commonly used methods of valuation:
+                Discounted Cash Flow (DCF) analysis is a valuation method used
+                to estimate the value of an investment based on its expected
+                future cash flows. The fundamental principle behind DCF is that
+                the present value of future cash flows is determined by
+                discounting them back to their current value, considering the
+                time value of money. DCF is widely used in finance and
+                investment analysis, particularly for valuing stocks, bonds,
+                real estate, and other income-generating assets.
               </p>
               <div className="subtopic">
-                <h3>Discounted Cash Flow (DCF)</h3>
-                <p>
-                  DCF is a fundamental valuation method used to assess the
-                  present value of future cash flows generated by an asset or
-                  investment. Discounted Cash Flow (DCF) models are cornerstones
-                  of financial valuation, providing a systematic approach to
-                  estimate the intrinsic value of assets.
-                </p>
-              </div>
-              <div className="subtopic">
-                <h3>Market Capitalization</h3>
-                <p>
-                  This method is primarily used for publicly traded companies
-                  and involves multiplying the current stock price by the total
-                  number of outstanding shares. It provides a quick estimate of
-                  the total value of a company based on the stock market's
-                  assessment.
-                </p>
-              </div>
-              <div className="subtopic">
-                <h3>Comparable Company Analysis (CCA)</h3>
-                <p>
-                  CCA involves comparing the target asset or business to similar
-                  companies in the same industry. By examining metrics like
-                  price-to-earnings ratios or enterprise values, this method
-                  provides a relative valuation based on industry benchmarks.
-                </p>
-              </div>
-              <div className="subtopic">
-                <h3>Comparable Transactions</h3>
-                <p>
-                  Similar to CCA, this method compares the target asset or
-                  business to similar transactions that have occurred recently.
-                  It is especially useful for valuing businesses in private
-                  equity or mergers and acquisitions.
-                </p>
-              </div>
-              <div className="subtopic">
-                <h3>Earnings Multiplier</h3>
-                <p>
-                  Often used for small businesses, this method calculates the
-                  value by applying a specific earnings multiple (such as
-                  price-to-earnings or price-to-sales) to the company's earnings
-                  or revenue.
-                </p>
-              </div>
-              <div className="subtopic">
-                <h3>Asset-Based Approach</h3>
-                <p>
-                  This approach calculates the value of an entity based on its
-                  tangible and intangible assets. It considers the net asset
-                  value, including property, equipment, patents, and
-                  intellectual property.
-                </p>
-              </div>
-            </div>
-            <div className="topic">
-              <h2>Discounted Cash Flow (DCF) Valuation</h2>
-              <p>
-                The Discounted Cash Flow (DCF) model is a fundamental and widely
-                used method for valuing businesses and investment opportunities.
-                At its core, the DCF model focuses on estimating the intrinsic
-                value of a company by analyzing its future cash flows. The
-                process involves two primary components. First, a pro forma
-                analysis of future cash flows is conducted, which entails
-                forecasting and projecting the cash flows a company is expected
-                to generate over a specified period into the future. This phase
-                necessitates meticulous examination of operating cash flows,
-                capital expenditures, and changes in working capital. Second,
-                the model entails discounting these projected cash flows back to
-                their present value using a predetermined discount rate,
-                typically the company's cost of capital. The result is a
-                valuation that reflects the present worth of the company's
-                anticipated future cash flows, considering the time value of
-                money and the risk associated with those cash flows. This
-                intrinsic value is pivotal for decision-making in areas such as
-                investment, acquisitions, and assessing the attractiveness of
-                potential business ventures, offering a comprehensive and
-                analytical approach to ascertain the true worth of a company.
-              </p>
-              <div className="subtopic">
-                <h3>Attributes</h3>
-                <ul>
-                  <li>Cashflow centric</li>
-                  <li>Recognizes the time value of money</li>
-                  <li>Versatile and customisable</li>
-                  <li>Incorporates growth and risk</li>
-                </ul>
-              </div>
-              <div className="subtopic">
-                <h3>Inner Workings of the DCF</h3>
-                <div>
-                  <h4>Pro Forma Analysis of Future Cash Flows</h4>
+                <h3>Key Components of DCF Analysis</h3>
+                <div className="subsubtopic">
+                  <h4>Free Cash Flow (FCF)</h4>
                   <p>
-                    This initial phase delves into the projection and estimation
-                    of the future cash flows a company is poised to generate.
-                    It's a meticulous undertaking, involving the forecasting of
-                    operating cash flows, capital expenditures, and changes in
-                    working capital. The end result is a detailed financial
-                    projection that stretches across a defined period into the
-                    future.
+                    Free Cash Flow is the cash generated by a business that is
+                    available for distribution to investors (both debt and
+                    equity holders) after accounting for operating expenses and
+                    capital expenditures.
+                  </p>
+                  <div id="fcfformula"></div>
+                </div>
+                <div className="subsubtopic">
+                  <h4>Discount Rate</h4>
+                  <p>
+                    The discount rate represents the rate of return required by
+                    an investor to justify an investment. It accounts for the
+                    time value of money and the risk associated with the
+                    investment.Commonly Used Discount Rates:
+                  </p>
+                  <ul>
+                    <li>
+                      Weighted Average Cost of Capital (WACC) for the entire
+                      company
+                    </li>
+                    <li>Cost of Equity for equity-specific valuation.</li>
+                    <li>Cost of Debt for debt-specific valuation.</li>
+                  </ul>
+                  <div id="cdformula"></div>
+                  <br></br>
+                  <div id="ceformula"></div>
+                  <br></br>
+                  <div id="waccformula"></div>
+                  <br></br>
+                  <p>Where:</p>
+                  <ul>
+                    <li>i is the annual interest expense</li>
+                    <li>D is the Total Debt.</li>
+                    <li>E is the total amount of Equity</li>
+                    <li>A is the total amount of Assets</li>
+                    <li>Rf is the riskfree rate ( Treasury Rate)</li>
+                    <li>β is the Beta</li>
+                    <li>Rm is the return rate on the market</li>
+                    <li>T is the taxrrate</li>
+                  </ul>
+                </div>
+                <div className="subsubtopic">
+                  <h4>Terminal Value</h4>
+                  <p>
+                    The Terminal Value accounts for the present value of all
+                    future cash flows beyond the explicit forecast period. It is
+                    often calculated using the perpetuity growth model (Gordon
+                    Growth Model) or an exit multiple method. Which is the
+                    present Value of all Shortterm forecats + the Forecast at
+                    n's value using the gordon growth model and a user defined
+                    long term growth rate
                   </p>
                 </div>
-                <div>
-                  <h4>Discounting the Future Cash Flows</h4>
+                <div className="subsubtopic">
+                  <h4>Explicit Forecast Period</h4>
                   <p>
-                    Once the projected cash flows are at hand, they undergo a
-                    transformation. They are discounted back to their present
-                    value, guided by a predefined discount rate, often
-                    synonymous with the company's cost of capital. This process
-                    is crucial, accounting for the time value of money and
-                    acknowledging the risk inherent in those cash flows. The
-                    outcome is an intrinsic value that, in essence, signifies
-                    the present worth of the company's expected future cash
-                    flows.
+                    The period during which detailed cash flow projections are
+                    made. Typically, this covers a few years into the future,
+                    and beyond this, the Terminal Value is applied.
                   </p>
                 </div>
               </div>
+              <div className="subtopic">
+                <h3>Steps in Conducting DCF Analysis</h3>
+                <div className="subsubtopic">
+                  <ol>
+                    <li>
+                      <p>
+                        <strong>Gather Data:</strong> Collect relevant financial
+                        and business data, including historical financial
+                        statements, cash flow information, and any other data
+                        necessary for forecasting future cash flows.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Forecast Future Cash Flows:</strong> Project
+                        future cash flows based on historical data, market
+                        trends, and other relevant factors. This may include
+                        estimating revenues, expenses, and capital expenditures.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Determine the Discount Rate:</strong> Identify
+                        an appropriate discount rate, often the Weighted Average
+                        Cost of Capital (WACC), to discount future cash flows
+                        back to their present value.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Calculate Present Value:</strong> Apply the
+                        discount rate to each projected cash flow to calculate
+                        its present value. Sum these present values to obtain
+                        the total present value of future cash flows.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Estimate Terminal Value:</strong> Determine the
+                        terminal value, which represents the value of the
+                        business beyond the forecast period. This is often
+                        calculated using the Gordon Growth Model or other
+                        relevant methods.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Calculate Enterprise Value:</strong> Combine the
+                        present value of forecasted cash flows and the terminal
+                        value to calculate the enterprise value.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Consider Net Debt and Excess Cash:</strong>{" "}
+                        Adjust the enterprise value by accounting for net debt
+                        and excess cash to arrive at the equity value.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Determine Intrinsic Stock Value:</strong> Divide
+                        the equity value by the number of shares outstanding to
+                        calculate the intrinsic value per share.
+                      </p>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+              <div className="subtopic">
+                <h3>Considerations and Challenges of DCF Analysis</h3>
+                <div className="subsubtopic">
+                  <ul>
+                    <li>
+                      <p>
+                        <strong>Data Accuracy:</strong> Ensure the accuracy and
+                        reliability of the data used in the analysis. Inaccurate
+                        or incomplete data can lead to flawed projections.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Assumption Sensitivity:</strong> DCF analysis
+                        heavily relies on assumptions. Be aware of the
+                        sensitivity of results to changes in key assumptions,
+                        such as growth rates and discount rates.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Market Volatility:</strong> Consider the impact
+                        of market volatility on the discount rate and cash flow
+                        projections. Economic and industry fluctuations can
+                        influence results.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Forecasting Challenges:</strong> Forecasting
+                        future cash flows accurately can be challenging.
+                        External factors, unforeseen events, and changes in
+                        market conditions may affect projections.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Terminal Value Assumptions:</strong> The
+                        determination of terminal value involves assumptions
+                        about perpetual growth rates and discount rates.
+                        Scrutinize these assumptions carefully.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Debt and Equity Structure:</strong> The accurate
+                        representation of a company's capital structure is
+                        crucial. Ensure that debt and equity components are
+                        appropriately reflected.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Comparative Analysis:</strong> Consider using
+                        DCF in conjunction with other valuation methods for a
+                        more comprehensive assessment. Each method has its
+                        strengths and weaknesses.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="subtopic">
+                <h3>Advantages of DCF Analysis</h3>
+                <div className="subsubtopic">
+                  <ul>
+                    <li>
+                      <p>
+                        <strong>Future Cash Flow Focus:</strong> DCF analysis
+                        focuses on estimating the future cash flows of a
+                        business, providing a forward-looking perspective on its
+                        valuation.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Time Value of Money:</strong> DCF recognizes the
+                        time value of money by discounting future cash flows to
+                        their present value, reflecting the concept that a
+                        dollar today is worth more than a dollar in the future.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Comprehensive Valuation:</strong> DCF takes into
+                        account the entire future cash flow stream and considers
+                        the present value of both short-term and long-term cash
+                        flows, providing a holistic valuation perspective.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Customizable Assumptions:</strong> DCF allows
+                        for the customization of key assumptions, such as growth
+                        rates and discount rates, making it adaptable to the
+                        specific characteristics of the business being analyzed.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Investor-Centric:</strong> DCF is
+                        investor-centric, as it helps investors evaluate the
+                        intrinsic value of an investment, assisting in informed
+                        decision-making regarding buying, selling, or holding
+                        assets.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Risk Assessment:</strong> DCF analysis
+                        inherently incorporates risk considerations by
+                        discounting future cash flows at an appropriate discount
+                        rate, reflecting the risk profile of the investment.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className="subtopic">
+                <h3>Limitations of DCF Analysis</h3>
+                <div className="subsubtopic">
+                  <ul>
+                    <li>
+                      <p>
+                        <strong>Dependency on Assumptions:</strong> DCF heavily
+                        relies on various assumptions, including growth rates,
+                        discount rates, and terminal values, making results
+                        sensitive to the accuracy of these assumptions.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Forecasting Challenges:</strong> Forecasting
+                        future cash flows can be challenging, especially for
+                        businesses with unpredictable cash flow patterns or
+                        those operating in dynamic industries.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>
+                          Difficulty in Determining Discount Rates:
+                        </strong>{" "}
+                        Choosing an appropriate discount rate, such as the
+                        Weighted Average Cost of Capital (WACC), can be
+                        subjective and may vary based on different
+                        interpretations.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Ignoring Market Fluctuations:</strong> DCF
+                        assumes a stable and predictable future, often
+                        overlooking potential market fluctuations, economic
+                        uncertainties, or external shocks that can impact cash
+                        flows.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Long-Term Projections:</strong> Long-term
+                        projections in DCF analysis are inherently uncertain,
+                        and the accuracy of projections diminishes as the
+                        forecasting period extends further into the future.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Discount Rate Challenges:</strong> Determining
+                        an appropriate discount rate for different cash flow
+                        components, such as debt and equity, can be complex and
+                        may lead to misrepresentations.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div className="topic">
+
+            <div className={styles.topic} ref={ddmref}>
               <h2>Dividends Discount Model</h2>
               <p>
                 The Dividend Discount Model (DDM) represents a specialized

@@ -1,0 +1,198 @@
+.welcome{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease-out;
+}
+.welcome img{
+    width: 100px;
+    height: 100px;
+}
+.lower{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.lower div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    margin: auto;
+    padding-top: 20px;
+}
+.start{
+    margin-top: 25px;
+    min-width: 200px;
+    min-height: 40px;
+    border: none;
+    border-radius: 7px;
+    font-size: medium;
+    background: linear-gradient(to left, #f4f4f4 50%, rgba(135, 152, 238,1) 50%) right;
+    background-size: 200% 100%;
+    transition: all 2s ease-in-out;
+}
+.start:hover{
+    cursor: pointer;
+    color: white;
+    background-position: left;
+}
+.subheader{
+  width: 40%;
+}
+.icon{
+  width: 20px;
+  height: 20px;
+  flex-basis: 10%;
+  margin-top: 7px;
+}
+#portfolioSummary{
+  background-color: rgba(8, 166, 156, 0.8098);
+  min-width: 350px;
+  border-radius: 7px;
+  transition: background-color 0.5s ease;
+}
+#portfolioValue{
+  background-color: rgba(81, 90, 232, 0.8098);
+  min-width: 350px;
+  border-radius: 7px;
+  margin-left: 40px;
+  transition: background-color 0.5s ease;
+}
+#portfolioSummary:hover{
+  background-color: rgba(8, 166, 156, 1);
+  cursor: pointer;
+}
+#portfolioValue:hover{
+  background-color: rgba(81, 90, 232, 1);
+  cursor: pointer;
+}
+#currentportfolio{
+  width: 90%;
+  margin-top: 30px;
+  border: 1px solid rgba(198, 198, 198, 1);
+  border-radius: 7px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 200px;
+  overflow-y: scroll;
+
+}
+#currentportfolio table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 40px;
+}
+.theader{
+  width: 100%;
+}
+#currentportfolio h2{
+  margin-left: 20px;
+}
+
+.tableheadelem{
+  width: 20%;
+  font-weight: lighter;
+  font-size: 13px;
+  border-collapse: collapse;
+
+}
+.tablerowelem{
+  width: 20%;
+  margin-right: 10px;
+  font-size: 13px;
+  text-align: center;
+
+}
+.firstlayer{
+  display: flex;
+  flex-direction: row;
+
+}
+.overview{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+.repartition{
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  max-height: 100%;
+  
+
+}
+.overviewtop{
+  display: flex;
+  flex-direction: row;
+}
+
+.portfoliosubcont{
+  margin: auto;
+  margin-top: 30px;
+  width: 80%;
+
+}
+.boxheader h3, .boxheader h1 {
+
+  color: #fff;
+
+}
+.boxheader{
+display:flex;
+
+}
+
+.boxbody{
+  width: 80%;
+  margin:auto;
+}
+.boxbody div{
+  display: flex;
+}
+.boxbody p{
+  margin-top: 0px;
+  color: #fff;
+  flex-basis: 50%
+}
+@keyframes fadeIn {
+    0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.lower > div:nth-child(1) {
+  animation: fadeInDelay 1s ease-out 1s;
+}
+
+.lower > div:nth-child(2) {
+  animation: fadeInDelay 1s ease-out 1.5s;
+}
+
+.lower > div:nth-child(3) {
+  animation: fadeInDelay 1s ease-out 2s;
+}
+
+.lower > div:nth-child(4) {
+  animation: fadeInDelay 1s ease-out 2.5s;
+}
+
+@keyframes fadeInDelay {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

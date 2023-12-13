@@ -1,12 +1,15 @@
 import yfinance as yf
 import pandas as pd
 from datetime import date, timedelta
+from yahooquery import Ticker
 
 ticker = 'TSLA'
 t= yf.Ticker(ticker)
 
-print(t.cashflow)
 
+aapl = Ticker('AAPL')
+
+print(aapl.re)
 
 ticker = yf.Ticker('AAPL')
 

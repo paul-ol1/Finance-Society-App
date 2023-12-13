@@ -4,6 +4,6 @@ import pandas as pd
 import sys
 
 
-ticker= yf.Ticker("^FNX")
+ticker= yf.Ticker("^TNX")
 currentprice = ticker.basic_info['lastPrice']
 print("%.2f" % round(currentprice, 2))

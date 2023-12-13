@@ -54,6 +54,14 @@
     text-align: end;
     color: rgba(80, 80, 80, 0.7);
 }
+.keyinfoinput{
+    height: 100%;
+    border: none;
+    text-align: end;
+    outline: none;
+    color: rgba(80, 80, 80, 0.7);
+    font-size: 0.8rem;
+}
 .section, .sharedsection,.finalvalues{
     margin-bottom: 50px;
     min-width: 90%;
@@ -138,14 +146,24 @@ min-width: 700px;
     padding-left: 10px;
     padding-top: 10px;
 }
+.tablevalues input:hover {
+  cursor: pointer;
+  background-color: rgba(135, 152, 238, 0.2);
+}
+.keyinfoinput:hover {
+  cursor: pointer;
+  background-color: rgba(135, 152, 238, 0.2);
+}
+
 
 
 .tableinput{
     border: none;
-    width: 70%;
+    width: 100%;
     font-size: 0.8rem;
     color: #898282;
-    text-align: end;
+    text-align: center;
+    height: 100%;
 }
 .tableindex_sub{
 
@@ -172,27 +190,52 @@ min-width: 700px;
 
 }
 
+.help{
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    width: 35%;
+    height: 60%;
+    overflow-y: scroll;
+    z-index: 500000;
+    background-color: white;;
+    border-radius: 30px;
+    padding: 10px;
+    text-align: justify;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: rgba(3, 30, 64, 1);
+}
+.help button{
+    width: 50%;
+    height: 30px;
+    background-color: rgba(135, 152, 238, 0.2);
+    border: none;
+    border-radius: 5px;
+    transition: all 0.5s ease-in-out;
+}
+.help button:hover{
 
-
+    background-color: rgba(135, 152, 238, 0.5);
+    cursor: pointer;
+    color: white;
+}
+.help h2{
+    text-align: center;
+}
+.helpbuttdiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .projection{
     margin: auto;
     min-width: 80%;
 }
 
-/* Add this to your CSS file or create a new CSS file and import it */
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 
-.spinner {
-  border: 6px solid rgba(0, 0, 0, 0.1);
-  border-left: 6px solid #000;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  display: flex;
-  margin: 0 auto; /* This centers the spinner horizontally */
-  margin-top: 300px; /* Adjust this margin-top value to center the spinner vertically */
+.icon {
+  padding-left: 10px; /* Add padding or any other styles if needed */
+}
+.icon:hover{
+    cursor: pointer;
 }

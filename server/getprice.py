@@ -17,6 +17,6 @@ currentshares= ticker.basic_info['shares']
 currentprice = ticker.basic_info['lastPrice']
 
 currentprice= "%.2f" % round(currentprice, 2)
-yahoo_financials = YahooFinancials(symbol)
-beta = yahoo_financials.get_beta()
-print(currentprice,currentshares,beta)
+##yahoo_financials = YahooFinancials(symbol)
+#beta = yahoo_financials.get_beta()
+print(currentprice,currentshares,1)

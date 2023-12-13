@@ -7,13 +7,44 @@ import Link from "next/link";
 import { getCookie } from "./checkcookie";
 import { useRouter } from "next/router";
 import styles from "styles/header.module.css";
+import usericon from "public/img/usericon.png";
 
+
+function logout(){
+  document.cookie.split(";").forEach(function (c) {
+    document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+  });
+
+}
+function usericonfunc(){
+  return (
+    <div className={styles.usericonfunc}>
+      <button>
+        <Link href="/profile">Profile</Link>
+      </button>
+      <button>
+        <Link href="/settings">Settings</Link>
+      </button>
+      <button onClick={()=>{
+        logout()
+      }}>
+        <Link href="/">Log Out</Link>
+      </button>
+    </div>
+  );
+}
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [revealIcon, setRevealIcon]= useState(false)
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
   useEffect(() => {
     const userAuthenticated = getCookie("Userdetails");
     setIsLoggedIn(userAuthenticated);
+    setLoading(false);
   }, []);
 
   const beforeLogin = ["About", "Help"];
@@ -25,7 +56,12 @@ function Header() {
     "Worksheet",
   ];
   const content = isLoggedIn ? afterLogin : beforeLogin;
+
+  if (loading) {
+    return null;
+  }
   return (
+    <>
     <div className={styles.header}>
       <div className={styles.header_left}>
         <div id={styles.logo} className={styles.header_elem}>
@@ -48,7 +84,7 @@ function Header() {
       <div className={styles.header_right}>
         {isLoggedIn ? (
           <div className={styles.header_elem} id="header-elem-right">
-            <FontAwesomeIcon icon={faUser} className={styles.usericon} />
+            <Image src={usericon} className={styles.usericon} onClick={()=>{revealIcon?setRevealIcon(false):setRevealIcon(true);}} />
           </div>
         ) : (
           <Link
@@ -61,6 +97,8 @@ function Header() {
         )}
       </div>
     </div>
+    {revealIcon?usericonfunc():<></>}
+    </>
   );
 }
 

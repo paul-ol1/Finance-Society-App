@@ -34,16 +34,17 @@ function typewriter(text,id) {
 function LandingContent() {
      useEffect(() => {
        typewriter(
-         "Join Finance Society and discover the world of financial analysis on our website, offering essential tools to assess and value companies effectively.",
+         "Empower yourself with our financial insights and tools to navigate the intricacies of the financial world. Join Finance Society and gain access to essential financial tools for effective company analysis, valuation, and a generally less complex perspective to the use of financial tools.",
          "intro-text"
        );
+
 
      }, []);
   return (
     <div className="content">
       <div className={styles.intro}>
         <div className={styles.homecontent_left} id="intro-text">
-          <h1>Navigate Financial Tools</h1>
+          <h1>Demystifying the complexities of Financial Tools</h1>
         </div>
         <div className={styles.homecontent_right}>
           <Image src={homepageimage} alt="" style={{ transform: "scale(1)" }} />

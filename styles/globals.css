@@ -33,10 +33,14 @@ body {
 }
 
 .content{
+  margin: auto;
   margin-top: 150px;
   padding-left: 15px;
   padding-right: 15px;
   min-width: '800px';
+
+
+
 }
 input:focus {
   outline: none;
@@ -258,10 +262,33 @@ margin-top: -3px;
   border-radius: 50%;
   width: 440px;
   height: 290px;
-
 }
 .searchbar:hover{
   cursor: pointer;
+}
+
+.subtopic img{
+  width: 50%;
+  height: 50%;
+  margin: auto;
+  display: flex;
+  
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #000;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  display: flex;
+  margin: 0 auto; /* This centers the spinner horizontally */
+  margin-top: 300px; /* Adjust this margin-top value to center the spinner vertically */
 }
 
 
