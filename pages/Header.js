@@ -6,8 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCookie } from "./checkcookie";
 import { useRouter } from "next/router";
-import styles from "styles/header.module.css";
-import usericon from "public/img/usericon.png";
+import styles from "../styles/header.module.css";
+import usericon from "../public/img/usericon.png";
 
 
 function logout(){

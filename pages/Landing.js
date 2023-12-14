@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import homepageimage from "/public/img/homeimage.jpg";
-import Invest from "/public/img/InvestmentIllustration.jpeg";
-import Portfolio from "/public/img/portfolio.png";
-import val from "/public/img//Valuation.png";
+import homepageimage from "../public/img/homeimage.jpg";
+import Invest from "../public/img/InvestmentIllustration.jpeg";
+import Portfolio from "../public/img/portfolio.png";
+import val from "../public/img//Valuation.png";
 import Header from "./Header";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,7 +10,7 @@ import SignUp from "./Signup";
 import styles from "../styles/landing.module.css";
 import { getCookie } from "./checkcookie";
 
-function typewriter(text,id) {
+function typewriter(text, id) {
   let newP = document.createElement("p");
   let currentIndex = 0; // Initialize an index variable
   newP.style.display = "block";
@@ -29,17 +29,13 @@ function typewriter(text,id) {
   addLetter();
 }
 
-
-
 function LandingContent() {
-     useEffect(() => {
-       typewriter(
-         "Empower yourself with our financial insights and tools to navigate the intricacies of the financial world. Join Finance Society and gain access to essential financial tools for effective company analysis, valuation, and a generally less complex perspective to the use of financial tools.",
-         "intro-text"
-       );
-
-
-     }, []);
+  useEffect(() => {
+    typewriter(
+      "Empower yourself with our financial insights and tools to navigate the intricacies of the financial world. Join Finance Society and gain access to essential financial tools for effective company analysis, valuation, and a generally less complex perspective to the use of financial tools.",
+      "intro-text"
+    );
+  }, []);
   return (
     <div className="content">
       <div className={styles.intro}>

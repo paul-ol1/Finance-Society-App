@@ -2,31 +2,36 @@ import React, { useEffect, useState } from "react";
 import { getCookie } from "./checkcookie";
 import Header from "./Header";
 import Image from "next/image";
-import createimg from "public/img/create.png";
-import manageimg from "public/img/manage.png";
-import analyticsimg from "public/img/analytics.png";
-import decisions from "public/img/decisions.png";
-import styles from "styles/portfolio.module.css";
+import createimg from "/public/img/create.png";
+import manageimg from "/public/img/manage.png";
+import analyticsimg from "/public/img/analytics.png";
+import decisions from "/public/img/decisions.png";
+import styles from "/styles/portfolio.module.css";
 import Link from "next/link";
 import Portfoliosubheader from "./portfoliosubheader.js";
 import Head from "next/head";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHandHoldingDollar } from "@fortawesome/free-solid-svg-icons";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Doughnut,Pie } from "react-chartjs-2";
+import { Doughnut, Pie } from "react-chartjs-2";
 ChartJS.register(ArcElement, Tooltip, Legend);
-const testcase= [['Stock','Bonds','Commodity'],[10000,2000,4000]];
+const testcase = [
+  ["Stock", "Bonds", "Commodity"],
+  [10000, 2000, 4000],
+];
 function generateRandomColor(arr) {
-  let setofColor=[];
+  let setofColor = [];
   console.log(arr.length);
   const randomColor = () => Math.floor(Math.random() * 256);
   for (let i = 0; i < arr.length; i++) {
-    setofColor.push(`rgba(${randomColor()}, ${randomColor()}, ${randomColor()}, 0.7)`)
-}
+    setofColor.push(
+      `rgba(${randomColor()}, ${randomColor()}, ${randomColor()}, 0.7)`
+    );
+  }
   return setofColor;
 }
 
-function assettypesplit(userdata){
+function assettypesplit(userdata) {
   const options = {
     maintainAspectRatio: false,
     responsive: true,
@@ -56,8 +61,6 @@ function assettypesplit(userdata){
       {
         data: userdata[1],
         backgroundColor: generateRandomColor(userdata[1]),
-
-
       },
     ],
   };
@@ -85,7 +88,6 @@ const testData = [
 ];
 
 function NewPortfolio() {
-
   return (
     <div className={styles.welcome}>
       <div className={styles.upper}>
@@ -129,28 +131,28 @@ function NewPortfolio() {
   );
 }
 
-function portfoliosummary(amountinvested,currentVolatility,eryearly){
-return (
-  <div id={styles.portfolioSummary} className={styles.cbox}>
-    <div className={styles.boxheader}>
-      <FontAwesomeIcon icon={faHandHoldingDollar} className={styles.icon} />
-      <div>
-        <h3>Amount Invested</h3>
-        <h1 style={{marginTop:'-10px'}}>$ {amountinvested}</h1>
+function portfoliosummary(amountinvested, currentVolatility, eryearly) {
+  return (
+    <div id={styles.portfolioSummary} className={styles.cbox}>
+      <div className={styles.boxheader}>
+        <FontAwesomeIcon icon={faHandHoldingDollar} className={styles.icon} />
+        <div>
+          <h3>Amount Invested</h3>
+          <h1 style={{ marginTop: "-10px" }}>$ {amountinvested}</h1>
+        </div>
+      </div>
+      <div className={styles.boxbody}>
+        <div>
+          <p>Current Volatility</p>
+          <p>{currentVolatility}</p>
+        </div>
+        <div>
+          <p>Expected Return(Yearly)</p>
+          <p>{eryearly}</p>
+        </div>
       </div>
     </div>
-    <div className={styles.boxbody}>
-      <div>
-        <p>Current Volatility</p>
-        <p>{currentVolatility}</p>
-      </div>
-      <div>
-        <p>Expected Return(Yearly)</p>
-        <p>{eryearly}</p>
-      </div>
-    </div>
-  </div>
-);
+  );
 }
 
 function portfoliovalue(currval, dailyreturn, absreturn) {
@@ -176,7 +178,7 @@ function portfoliovalue(currval, dailyreturn, absreturn) {
     </div>
   );
 }
-function currentportfolio(data){
+function currentportfolio(data) {
   return (
     <div id={styles.currentportfolio}>
       <h2>Current Portfolio</h2>
@@ -200,8 +202,14 @@ function currentportfolio(data){
                     <td className={styles.tablerowelem}>{elem.name}</td>
                     <td className={styles.tablerowelem}>{elem.quantity}</td>
                     <td className={styles.tablerowelem}>${elem.buyprice}</td>
-                    <td className={styles.tablerowelem}>${elem.currentprice}</td>
-                    <td className={styles.tablerowelem}>{gainloss < 0 ? `-$${Math.abs(gainloss)}` : `$${gainloss}`}</td>
+                    <td className={styles.tablerowelem}>
+                      ${elem.currentprice}
+                    </td>
+                    <td className={styles.tablerowelem}>
+                      {gainloss < 0
+                        ? `-$${Math.abs(gainloss)}`
+                        : `$${gainloss}`}
+                    </td>
                   </tr>
                 );
               }
@@ -244,7 +252,7 @@ export default function Portfolio() {
   const [currentVolatility, setCurrentVolatility] = useState(0);
   const [suminvested, setSumInv] = useState(0);
   const [assetSplit, setAssetSplit] = useState([]);
-  const [loading,setLoading]= useState(true);
+  const [loading, setLoading] = useState(true);
 
   function totalsuminvested(data) {
     let total = 0;
@@ -252,7 +260,7 @@ export default function Portfolio() {
       const val = data[i].BuyPrice * data[i].Quantity;
       total += val;
     }
-    setSumInv(total.toFixed(2))
+    setSumInv(total.toFixed(2));
     return total;
   }
   useEffect(() => {
@@ -267,17 +275,19 @@ export default function Portfolio() {
         const portfoliodata = await getportfoliodata(userid);
         console.log(portfoliodata);
         totalsuminvested(portfoliodata);
-        let assetsplit=[[],[]]
-        portfoliodata.map((x)=>{
-          if(!assetsplit[0].includes(x.AssetType)){
-            assetsplit[0].push(x.AssetType)
+        let assetsplit = [[], []];
+        portfoliodata.map((x) => {
+          if (!assetsplit[0].includes(x.AssetType)) {
+            assetsplit[0].push(x.AssetType);
           }
-          const index=assetsplit[0].indexOf(x.AssetType);
-          let currelem= parseFloat(assetsplit[1][index])?parseFloat(assetsplit[1][index]):0;
-          currelem += (x.Quantity *x.BuyPrice);
-          assetsplit[1][index]= parseFloat(currelem.toFixed(2));
-        })
-        setAssetSplit(assetsplit)
+          const index = assetsplit[0].indexOf(x.AssetType);
+          let currelem = parseFloat(assetsplit[1][index])
+            ? parseFloat(assetsplit[1][index])
+            : 0;
+          currelem += x.Quantity * x.BuyPrice;
+          assetsplit[1][index] = parseFloat(currelem.toFixed(2));
+        });
+        setAssetSplit(assetsplit);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -297,36 +307,36 @@ export default function Portfolio() {
       <div className="content">
         {portfolio ? (
           <>
-          {loading?<></>:(
-            <>
-            <div className={styles.subheader}>
-              <Portfoliosubheader />
-            </div>
-            <div className={styles.portfoliosubcont}>
-              <div className={styles.firstlayer}>
-                <div className={styles.overview}>
-                  <div className={styles.overviewtop}>
-                    {portfoliosummary(suminvested, 1.2, 1.5)}
-                    {portfoliovalue(20000, 1.23, 3)}
-                  </div>
-                  <div className={styles.overviewbottom}>
-                    {currentportfolio(testData)}
+            {loading ? (
+              <></>
+            ) : (
+              <>
+                <div className={styles.subheader}>
+                  <Portfoliosubheader />
+                </div>
+                <div className={styles.portfoliosubcont}>
+                  <div className={styles.firstlayer}>
+                    <div className={styles.overview}>
+                      <div className={styles.overviewtop}>
+                        {portfoliosummary(suminvested, 1.2, 1.5)}
+                        {portfoliovalue(20000, 1.23, 3)}
+                      </div>
+                      <div className={styles.overviewbottom}>
+                        {currentportfolio(testData)}
+                      </div>
+                    </div>
+                    <div className={styles.repartition}>
+                      {assettypesplit(testcase)}
+                    </div>
                   </div>
                 </div>
-                <div className={styles.repartition}>
-                  {assettypesplit(testcase)}
-                </div>
-              </div>
-            </div>
-            </>
-          )
-          }
-
+              </>
+            )}
           </>
         ) : (
-
-            <NewPortfolio />
+          <NewPortfolio />
         )}
       </div>
     </>
-  );};
+  );
+}

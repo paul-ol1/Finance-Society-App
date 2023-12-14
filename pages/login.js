@@ -1,12 +1,12 @@
 import React from "react";
-import bvimage from "public/img/signin-image.jpg";
+import bvimage from "../public/img/signin-image.jpg";
 import Image from "next/image";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { redirect } from "next/navigation";
 import Header from "./Header";
-import styles from "styles/lg.module.css";
+import styles from "../styles/lg.module.css";
 function Login() {
   const router = useRouter();
 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect,useRef } from "react";
 import Header from "./Header";
-import indicator from "/public/img/indicator.png";
+import indicator from "../public/img/indicator.png";
 import Image from "next/image";
 import { getCookie } from "./checkcookie";
 import { useRouter } from "next/router";
-import efficientfrontier from "public/img/efficientfrontier.png";
-import styles from "styles/investment.module.css";
+import efficientfrontier from "../public/img/efficientfrontier.png";
+import styles from "../styles/investment.module.css";
 
 
 function Investment(){
