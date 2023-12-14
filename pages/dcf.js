@@ -1227,8 +1227,9 @@ export default function Dcf() {
                 </div>
               </div>
               <div
-                style={{ width: "70%", height: "500px" }}
-                className={styles.section}>
+                className={styles.section}
+                >
+
                 {linechart(gr, fcf)}
               </div>
               <div className={styles.finalvalues}>

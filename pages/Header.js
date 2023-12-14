@@ -84,7 +84,7 @@ function Header() {
       <div className={styles.header_right}>
         {isLoggedIn ? (
           <div className={styles.header_elem} id="header-elem-right">
-            <Image src={usericon} className={styles.usericon} onClick={()=>{revealIcon?setRevealIcon(false):setRevealIcon(true);}} />
+            <Image src={usericon} alt='usericon' className={styles.usericon} onClick={()=>{revealIcon?setRevealIcon(false):setRevealIcon(true);}} />
           </div>
         ) : (
           <Link

@@ -181,6 +181,7 @@ app.post("/api/getsd", function (req, res) {
       res.status(500).send("Internal Server Error");
     } else {
       let data = stdout.trim().split(" ");
+      console.log(data);
       res.send(data);
     }
   });

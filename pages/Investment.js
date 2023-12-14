@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import Header from "./Header";
 import indicator from "/public/img/indicator.png";
 import Image from "next/image";
 import { getCookie } from "./checkcookie";
 import { useRouter } from "next/router";
 import efficientfrontier from "public/img/efficientfrontier.png";
-
+import styles from "styles/investment.module.css";
 
 
 function Investment(){
   const router = useRouter();
-  const [guideLeft, setGuideLeft] = useState(0); // Initial left position
+  const [guide, setGuide] = useState(false);
+  const typesref = useRef(null);
+  const strategies = useRef(null);
+  const fm = useRef(null);
+  const rm = useRef(null);
   useEffect(() => {
     // Check the cookie and conditionally navigate to another page
     if (!getCookie("Userdetails")) {
@@ -23,6 +27,18 @@ function Investment(){
       <>
         <Header />
         <div className="content">
+          <div className={styles.guide}>
+          <Image src={indicator} id="ind" alt="indicator" onClick={() => { setGuide(!guide);
+          document.getElementById('ind').style.animation='none';}}></Image>
+          {guide?(
+            <>
+            <p onClick={()=>{typesref.current.scrollIntoView({ behavior: "smooth"})}}>Types</p>
+          <p onClick={()=>{strategies.current.scrollIntoView({ behavior: "smooth" });}}>Strategies</p>
+          <p onClick={()=>{fm.current.scrollIntoView({ behavior: "smooth" });}}>Markets</p>
+          <p onClick={()=>{rm.current.scrollIntoView({ behavior: "smooth" });}}>Risk Management</p>
+          </>
+
+          ):<></>}</div>
           <div className="Investment">
             <div>
               <h1>Investment</h1>
@@ -49,7 +65,7 @@ function Investment(){
             </div>
 
             <div>
-              <div className="subtopic">
+              <div className="subtopic" ref={typesref}>
                 <h2>Types of Investments</h2>
               </div>
               <ul>
@@ -117,7 +133,7 @@ function Investment(){
                 </li>
               </ul>
             </div>
-            <div className="subtopic">
+            <div className="subtopic" ref={strategies}>
               <h2>Investment Strategies</h2>
             </div>
             <div>
@@ -178,7 +194,7 @@ function Investment(){
                 </li>
               </ul>
             </div>
-            <div className="subtopic">
+            <div className="subtopic" ref={fm}>
               <h2>Financial Markets</h2>
             </div>
             <div className="subsubtopic">
@@ -301,7 +317,7 @@ function Investment(){
                 role of sentiment in shaping market dynamics.
               </p>
             </div>
-            <div className="subtopic">
+            <div className="subtopic" ref={rm}>
               <h2>Risk Management</h2>
             </div>
 
@@ -441,7 +457,7 @@ function Investment(){
                   a defined level of risk or the minimum risk for a given level
                   of expected return.
                 </p>
-                <Image src={efficientfrontier}></Image>
+                <Image src={efficientfrontier} alt="efficient frontier"></Image>
                 <ul>
                   <li>
                     Portfolios that lie on the Efficient Frontier are considered

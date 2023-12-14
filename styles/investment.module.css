@@ -1,0 +1,48 @@
+.topic{
+    margin-bottom: 50px;
+}
+.guide img{
+    width: 40px;
+    height: 40px;
+    animation: fadeIn 3s ease-out, blink 1s linear infinite 3s ;
+
+
+}
+.guide{
+    position: fixed;
+    text-align: center;
+    width: 7%;
+}
+.guide:hover{
+    cursor: pointer;
+}
+.guide p:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+
+  }
+}
+@keyframes blink{
+    25%{
+        opacity: 0.5;
+    }
+    50%{
+        opacity: 1;
+    }
+    75%{
+        opacity: 0.5;
+    }
+    100%{
+        opacity: 1;
+    }
+}

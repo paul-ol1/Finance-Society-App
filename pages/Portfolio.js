@@ -31,14 +31,21 @@ function assettypesplit(userdata){
     maintainAspectRatio: false,
     responsive: true,
     plugins: {
+      title: {
+        display: true,
+        text: "Asset Breakdown",
+        font: {
+          size: 30,
+        },
+        align: "center",
+      },
       legend: {
         display: true,
         position: "bottom",
         labels: {
           boxWidth: 24,
-          boxHeight:20,
+          boxHeight: 20,
           padding: 10,
-
         },
       },
     },
@@ -317,9 +324,8 @@ export default function Portfolio() {
 
           </>
         ) : (
-          <div className={styles.subheader}>
+
             <NewPortfolio />
-          </div>
         )}
       </div>
     </>

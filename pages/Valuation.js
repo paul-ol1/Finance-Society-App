@@ -55,6 +55,7 @@ const dcfref = useRef(null);
       displayMode: true,
     });
     waccformulaDiv.innerHTML = waccHtml;
+    
   }, [router]);
 
   return (
@@ -62,7 +63,9 @@ const dcfref = useRef(null);
       <Header />
       <div className="content">
         <div className={styles.guide}>
-          <Image src={indicator} onClick={() => { setGuide(!guide)}}></Image>
+          <Image src={indicator} id='ind' alt='indicator' onClick={() => { setGuide(!guide)
+          document.getElementById("ind").style.animation = "none";
+          }}></Image>
           {guide?(
             <>
             <p onClick={()=>{dcfref.current.scrollIntoView({ behavior: "smooth"})}}>DCF</p>

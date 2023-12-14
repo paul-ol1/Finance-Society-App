@@ -1,19 +1,32 @@
 import yfinance as yf
 import pandas as pd
-from datetime import date, timedelta
-from yahooquery import Ticker
+from datetime import datetime, timedelta
 
-ticker = 'TSLA'
-t= yf.Ticker(ticker)
+# Define start and end dates
+end_date = datetime.today().strftime('%Y-%m-%d')
+start_date = (datetime.today() - timedelta(days=365 * 3)).strftime('%Y-%m-%d')
+
+# Download historical stock data
+data = yf.download(['AAPL', '^GSPC'], interval='1mo', start=start_date, end=end_date)
+print(data);
+
+# Extract the 'Adj Close' prices
+adj_close = data['Adj Close']
+
+# Calculate the percentage change
+percentage_change = adj_close.pct_change()
+
+# Drop NA values
+percentage_change = percentage_change.dropna()
+
+# Separate the data into stock and market index
+stock_returns = percentage_change['AAPL']
+market_returns = percentage_change['^GSPC']
+
+# Calculate beta
+covariance = stock_returns.cov(market_returns)
+variance = market_returns.var()
+beta = covariance / variance
 
 
-aapl = Ticker('AAPL')
 
-print(aapl.re)
-
-ticker = yf.Ticker('AAPL')
-
-stock_data =ticker.history(period='1y',interval='1wk')
-
-# Calculate daily returns for the stock and the market (using a market index, e.g., S&P 500)
-stock_returns = stock_data['Close'].pct_change().dropna()
